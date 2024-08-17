@@ -6,9 +6,11 @@
 Package session is a generated protocol buffer package.
 
 It is generated from these files:
+
 	github.com/google/battery-historian/pb/session_proto/session.proto
 
 It has these top-level messages:
+
 	Checkin
 */
 package session

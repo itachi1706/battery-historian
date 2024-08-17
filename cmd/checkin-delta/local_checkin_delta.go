@@ -15,7 +15,8 @@
 // local_checkin_delta parses checkin reports into protos and computes the difference between the two.
 //
 // Example Usage:
-//  ./local_checkin_delta -input=checkin_new.txt,checkin_old.txt
+//
+//	./local_checkin_delta -input=checkin_new.txt,checkin_old.txt
 package main
 
 import (

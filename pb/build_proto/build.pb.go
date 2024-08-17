@@ -6,9 +6,11 @@
 Package build is a generated protocol buffer package.
 
 It is generated from these files:
+
 	github.com/google/battery-historian/pb/build_proto/build.proto
 
 It has these top-level messages:
+
 	Build
 */
 package build

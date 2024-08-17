@@ -6,9 +6,11 @@
 Package batterystats is a generated protocol buffer package.
 
 It is generated from these files:
+
 	github.com/google/battery-historian/pb/batterystats_proto/batterystats.proto
 
 It has these top-level messages:
+
 	BatteryStats
 */
 package batterystats
@@ -1817,10 +1819,12 @@ type BatteryStats_App_Process struct {
 	XXX_unrecognized []byte   `json:"-"`
 }
 
-func (m *BatteryStats_App_Process) Reset()                    { *m = BatteryStats_App_Process{} }
-func (m *BatteryStats_App_Process) String() string            { return proto.CompactTextString(m) }
-func (*BatteryStats_App_Process) ProtoMessage()               {}
-func (*BatteryStats_App_Process) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0, 0, 10} }
+func (m *BatteryStats_App_Process) Reset()         { *m = BatteryStats_App_Process{} }
+func (m *BatteryStats_App_Process) String() string { return proto.CompactTextString(m) }
+func (*BatteryStats_App_Process) ProtoMessage()    {}
+func (*BatteryStats_App_Process) Descriptor() ([]byte, []int) {
+	return fileDescriptor0, []int{0, 0, 10}
+}
 
 func (m *BatteryStats_App_Process) GetName() string {
 	if m != nil && m.Name != nil {
@@ -3604,10 +3608,12 @@ type BatteryStats_System_Misc struct {
 	XXX_unrecognized                      []byte `json:"-"`
 }
 
-func (m *BatteryStats_System_Misc) Reset()                    { *m = BatteryStats_System_Misc{} }
-func (m *BatteryStats_System_Misc) String() string            { return proto.CompactTextString(m) }
-func (*BatteryStats_System_Misc) ProtoMessage()               {}
-func (*BatteryStats_System_Misc) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0, 2, 15} }
+func (m *BatteryStats_System_Misc) Reset()         { *m = BatteryStats_System_Misc{} }
+func (m *BatteryStats_System_Misc) String() string { return proto.CompactTextString(m) }
+func (*BatteryStats_System_Misc) ProtoMessage()    {}
+func (*BatteryStats_System_Misc) Descriptor() ([]byte, []int) {
+	return fileDescriptor0, []int{0, 2, 15}
+}
 
 func (m *BatteryStats_System_Misc) GetScreenOnTimeMsec() float32 {
 	if m != nil && m.ScreenOnTimeMsec != nil {

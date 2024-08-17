@@ -6,10 +6,12 @@
 Package usagestats is a generated protocol buffer package.
 
 It is generated from these files:
+
 	github.com/google/battery-historian/pb/usagestats_proto/android_battery_usage.proto
 	github.com/google/battery-historian/pb/usagestats_proto/android_package_info.proto
 
 It has these top-level messages:
+
 	SystemInfo
 	PackageInfo
 */

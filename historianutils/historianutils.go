@@ -40,13 +40,16 @@ var (
 
 // ScrubPII scrubs any part of the string that looks like PII (eg. an email address).
 // From:
-//     com.google.android.apps.plus.content.EsProvider/com.google/john.doe@gmail.com/extra
-//     or
-//     *sync*/com.app.android.conversations/com.app.android.account/Mr. Noogler
+//
+//	com.google.android.apps.plus.content.EsProvider/com.google/john.doe@gmail.com/extra
+//	or
+//	*sync*/com.app.android.conversations/com.app.android.account/Mr. Noogler
+//
 // To:
-//     com.google.android.apps.plus.content.EsProvider/com.google/XXX@gmail.com/extra
-//     or
-//     *sync*/com.app.android.conversations/com.app.android.account/XXX
+//
+//	com.google.android.apps.plus.content.EsProvider/com.google/XXX@gmail.com/extra
+//	or
+//	*sync*/com.app.android.conversations/com.app.android.account/XXX
 func ScrubPII(input string) string {
 	if matches, result := SubexpNames(piiEmailRE, input); matches {
 		return fmt.Sprintf("%sXXX@%s", result["prefix"], result["suffix"])
