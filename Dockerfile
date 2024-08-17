@@ -1,4 +1,4 @@
-FROM golang:1.22-alpine as builder
+FROM golang:1.22-alpine AS builder
 
 # Install git and python3 and java 21
 RUN apk update && apk add --no-cache git python3 openjdk21-jdk
