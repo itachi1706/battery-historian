@@ -64,4 +64,6 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: itachi1706/battery-historian:latest
+          tags: |
+            itachi1706/battery-historian:latest
+            itachi1706/battery-historian:master-${{ github.sha }}
