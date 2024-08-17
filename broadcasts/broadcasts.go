@@ -121,10 +121,10 @@ func Parse(f string) (string, []error) {
 	}
 	buf := new(bytes.Buffer)
 	p := parser{
-		lines:    strings.Split(f, "\n"),
-		buf:      buf,
-		csvState: csv.NewState(buf, true),
-		loc:      loc,
+		lines:                    strings.Split(f, "\n"),
+		buf:                      buf,
+		csvState:                 csv.NewState(buf, true),
+		loc:                      loc,
 		historicalBroadcastsUIDs: make(map[string]map[string]string),
 	}
 
@@ -172,7 +172,8 @@ func (p *parser) parseHistoricalBroadcast(id string) error {
 	// Next line should have the enqueue and dispatch offsets.
 	// We use peek to avoid advancing the line position in case it matches something else.
 	// e.g. the start of another event (that normally wouldn't happen).
-	m, result := historianutils.SubexpNames(historicalOffsetsRE, p.peek())
+	test := p.peek()
+	m, result := historianutils.SubexpNames(historicalOffsetsRE, test)
 	if !m {
 		return fmt.Errorf("#%s: missing dispatch and finish offsets", id)
 	}

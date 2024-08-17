@@ -1544,7 +1544,8 @@ func aggregateAppApk(app *bspb.BatteryStats_App) {
 // process will be created.
 //
 // record holds content from BatteryStats's processData.
-//   e.g., com.google.android.music:main,0,10,0,0
+//
+//	e.g., com.google.android.music:main,0,10,0,0
 func parseAppProcess(record []string, app *bspb.BatteryStats_App) (string, []error) {
 	p := &bspb.BatteryStats_App_Process{}
 	warn, errs := parseLine(processData, record, p)
@@ -1601,7 +1602,8 @@ func parseAppUserActivity(record []string, app *bspb.BatteryStats_App) (string, 
 // parsing will be added to their corresponding fields in that entry. Otherwise, a new entry will be created.
 //
 // record holds content from BatteryStats's sensorData.
-//   e.g., 5,45859,3,2,73820,53820
+//
+//	e.g., 5,45859,3,2,73820,53820
 func parseAppSensor(record []string, app *bspb.BatteryStats_App) (string, []error) {
 	s := &bspb.BatteryStats_App_Sensor{}
 	warn, errs := parseLine(sensorData, record, s)
@@ -1624,7 +1626,8 @@ func parseAppSensor(record []string, app *bspb.BatteryStats_App) (string, []erro
 // parseSystemPowerUseSummary parses "pws" (POWER_USE_SUMMARY_DATA) in System.
 //
 // record holds content from BatteryStats's powerUseSummaryData.
-//   e.g., 2100,76.7,84.0,105
+//
+//	e.g., 2100,76.7,84.0,105
 func parseSystemPowerUseSummary(pc checkinutil.Counter, record []string, system *bspb.BatteryStats_System) (string, []error) {
 	if system.GetPowerUseSummary() != nil {
 		pc.Count("error-parse-system-power-use-summary-exist", 1)
@@ -1716,9 +1719,12 @@ func parseAppScheduledJob(record []string, app *bspb.BatteryStats_App) (string, 
 //
 // format:
 // 9,10007,l,st,10,20,30 (report version <= 16)
-//   [foreground time (ms), active time (ms), running/cached time (ms)]
+//
+//	[foreground time (ms), active time (ms), running/cached time (ms)]
+//
 // 9,10007,l,st,10,20,30,40,50,60 (report version >= 17)
-//   [top time, foreground service time, top sleeping time, foreground time, background time, cached time]
+//
+//	[top time, foreground service time, top sleeping time, foreground time, background time, cached time]
 func parseAppStateTime(pc checkinutil.Counter, record []string, reportVersion int32, app *bspb.BatteryStats_App) (string, []error) {
 	if app.GetStateTime() == nil {
 		app.StateTime = &bspb.BatteryStats_App_StateTime{}
@@ -1783,17 +1789,22 @@ func parseAppSync(record []string, app *bspb.BatteryStats_App) (string, []error)
 //
 // format (v18-): 8,1000,l,wl,ConnectivityService,0,f,0,15411273,p,263,0,w,0
 // name, full wakelock time,    "f" (for full),    full wakelock count,
-//       partial wakelock time, "p" (for partial), partial wakelock count
-//       window wakelock time,  "w" (for window),  window wakelock count
+//
+//	partial wakelock time, "p" (for partial), partial wakelock count
+//	window wakelock time,  "w" (for window),  window wakelock count
+//
 // format (v19+): 9,1000,l,wl,ConnectivityService,0,f,0,-1,-1,15411273,p,263,5,10,0,w,0,-1,-1
 // name, full wakelock time,    "f" (for full),    full wakelock count, full wakelock current duration, full wakelock max duration
-//       partial wakelock time, "p" (for partial), partial wakelock count, partial wakelock current duration, partial wakelock max duration
-//       window wakelock time,  "w" (for window),  window wakelock count, window wakelock current duration, window wakelock max duration
+//
+//	partial wakelock time, "p" (for partial), partial wakelock count, partial wakelock current duration, partial wakelock max duration
+//	window wakelock time,  "w" (for window),  window wakelock count, window wakelock current duration, window wakelock max duration
+//
 // format (v21+): 9,1000,l,wl,ConnectivityService,0,f,0,-1,-1,-1,15411273,p,263,5,10,25411273,0,w,0,-1,-1,-1
 // name, full wakelock time,    "f" (for full),    full wakelock count, full wakelock current duration, full wakelock max duration, full wakelock total duration
-//       partial wakelock time, "p" (for partial), partial wakelock count, partial wakelock current duration, partial wakelock max duration, partial wakelock total duration
-//       window wakelock time,  "w" (for window),  window wakelock count, window wakelock current duration, window wakelock max duration, window wakelock total duration
-//   [Note: wakelock total duration differs from wakelock time in that the latter is pooled (blame is shared amongst all apps), whereas the former is not.]
+//
+//	    partial wakelock time, "p" (for partial), partial wakelock count, partial wakelock current duration, partial wakelock max duration, partial wakelock total duration
+//	    window wakelock time,  "w" (for window),  window wakelock count, window wakelock current duration, window wakelock max duration, window wakelock total duration
+//	[Note: wakelock total duration differs from wakelock time in that the latter is pooled (blame is shared amongst all apps), whereas the former is not.]
 func parseAppWakelock(c checkinutil.Counter, reportVersion int32, record []string, app *bspb.BatteryStats_App) (string, error) {
 	var ft, fc, pt, pc, wt, wc float32 // Proto backwards compatibility...these were float32 before.
 	var fMax, fCur, fTot, pMax, pCur, pTot, wMax, wCur, wTot int64
@@ -1914,8 +1925,10 @@ func parseAppWakeupAlarm(record []string, app *bspb.BatteryStats_App) (string, [
 // parseAppNetwork parses "nt" (NETWORK_DATA) into App.
 //
 // record holds content from BatteryStats's networkData.
-//   e.g., 0,0,996,1389 (reportVersion < 8)
-//   e.g., 0,0,8987,7051,0,0,25,29,0,0 (reportVersion >= 8)
+//
+//	e.g., 0,0,996,1389 (reportVersion < 8)
+//	e.g., 0,0,8987,7051,0,0,25,29,0,0 (reportVersion >= 8)
+//
 // If app has a Network field already, then newly found values from parsing will be added to it.
 // The most common case of this would be when an app is installed on a device with multiple users
 // (ie. with a work profile). In such cases, the app uid is combined with the user ID (to create
@@ -1993,7 +2006,8 @@ func parseControllerData(pc checkinutil.Counter, section string, record []string
 		PowerMah:     proto.Int64(pwr),
 	}
 	for i, t := range rem {
-		tm, err := strconv.Atoi(t)
+		nfp := strings.Split(t, ".")
+		tm, err := strconv.Atoi(nfp[0])
 		if err != nil {
 			return nil, fmt.Errorf("%s contained invalid transmit value: %v", section, err)
 		}
@@ -2115,7 +2129,8 @@ func parseSystemMisc(pc checkinutil.Counter, reportVersion int32, record []strin
 // parseSystemBatteryDischarge parses "dc" (BATTERY_DISCHARGE_DATA) in System.
 //
 // record holds content from BatteryStats's batteryDischargeData.
-//   e.g., 17,17,8,9
+//
+//	e.g., 17,17,8,9
 func parseSystemBatteryDischarge(pc checkinutil.Counter, record []string, system *bspb.BatteryStats_System) (string, []error) {
 	if system.GetBatteryDischarge() != nil {
 		pc.Count("error-parse-system-battery-discharge-exist", 1)
@@ -2132,7 +2147,8 @@ func parseSystemBatteryDischarge(pc checkinutil.Counter, record []string, system
 // parseSystemBatteryLevel parses "lv" (BATTERY_LEVEL_DATA) in System.
 //
 // record holds content from BatteryStats's batteryLevelData.
-//   e.g., 100,83
+//
+//	e.g., 100,83
 func parseSystemBatteryLevel(pc checkinutil.Counter, record []string, system *bspb.BatteryStats_System) (string, []error) {
 	if system.GetBatteryLevel() != nil {
 		pc.Count("error-parse-system-battery-level-exist", 1)
@@ -2240,19 +2256,21 @@ func parseSystemSignalScanningTime(pc checkinutil.Counter, record []string, syst
 // 8,0,l,sgc,19,60,85,38,1
 //
 // record holds content from one of the following sections in BatteryStats:
-//   bluetoothStateTimeData, bluetoothStateCountData,
-//   dataConnectionTimeData, dataConnectionCountData,
-//   signalStrengthTimeData, signalStrengthCountData,
-//   wifiSignalStrengthTimeData, wifiSignalStrengthCountData,
-//   wifiStateTimeData, wifiStateCountData,
-//   wifiSupplicantStateTimeData, wifiSupplicantStateCountData
+//
+//	bluetoothStateTimeData, bluetoothStateCountData,
+//	dataConnectionTimeData, dataConnectionCountData,
+//	signalStrengthTimeData, signalStrengthCountData,
+//	wifiSignalStrengthTimeData, wifiSignalStrengthCountData,
+//	wifiStateTimeData, wifiStateCountData,
+//	wifiSupplicantStateTimeData, wifiSupplicantStateCountData
 //
 // Note the sub-message (e.g., system.SignalStrength) is a repeated field whose i-th element
 // corresponds to i-th element in record, and the index "i" here matches i-th Name (enum type) in
 // each sub-message. Specifically, for any sub-message M (e.g., system.SignalStrength):
-//   For any M.Name enum i:
-//     system.M[i].Name = i
-//     system.M[i].TimeMsec (or Count) = record[i]
+//
+//	For any M.Name enum i:
+//	  system.M[i].Name = i
+//	  system.M[i].TimeMsec (or Count) = record[i]
 //
 // These sub-messages are not based on a single proto definition despite their similarity because
 // there's no guarantee that the input BatteryStats data (csv file) from Android client will stick
@@ -2434,8 +2452,9 @@ func parseSystemTimeCountPair(c checkinutil.Counter, section string, record []st
 // parseSystemWakeupReason parses "wr" (WAKEUP_REASON_DATA) in System. These are low-level messages and don't contain PII.
 //
 // record holds content from BatteryStats's wakeupReasonData.
-//   e.g., "289:bcmsdh_sdmmc:200:qcom,mpm:240:msmgpio",308628 (reportVersion < 11)
-//   e.g., "289:bcmsdh_sdmmc:200:qcom,mpm:240:msmgpio",308628,399 (reportVersion >= 11)
+//
+//	e.g., "289:bcmsdh_sdmmc:200:qcom,mpm:240:msmgpio",308628 (reportVersion < 11)
+//	e.g., "289:bcmsdh_sdmmc:200:qcom,mpm:240:msmgpio",308628,399 (reportVersion >= 11)
 func parseSystemWakeupReason(record []string, system *bspb.BatteryStats_System) (string, []error) {
 	// This time is the amount of time we saw the CPU awake from when we received
 	// a wake reason until we had another reason for it to be awake (someone
@@ -2453,10 +2472,11 @@ func parseSystemWakeupReason(record []string, system *bspb.BatteryStats_System) 
 // SystemBattery parses "bt" (BATTERY_DATA) in System.
 //
 // format:
-//   7,0,l,bt,N/A,4946,4946,25430,25430 (reportVersion < 8)
-//   9,0,l,bt,0,19447364,2268899,19466586,2288120,1411399763148,19399912,2221446 (8 <= reportVersion < 18)
-//   9,0,l,bt,0,19447364,2268899,19466586,2288120,1411399763148,19399912,2221446,3000000 (18 <= reportVersion <= 20)
-//   9,0,l,bt,0,19447364,2268899,19466586,2288120,1411399763148,19399912,2221446,3000000,3240000,3400000 (reportVersion >= 20)
+//
+//	7,0,l,bt,N/A,4946,4946,25430,25430 (reportVersion < 8)
+//	9,0,l,bt,0,19447364,2268899,19466586,2288120,1411399763148,19399912,2221446 (8 <= reportVersion < 18)
+//	9,0,l,bt,0,19447364,2268899,19466586,2288120,1411399763148,19399912,2221446,3000000 (18 <= reportVersion <= 20)
+//	9,0,l,bt,0,19447364,2268899,19466586,2288120,1411399763148,19399912,2221446,3000000,3240000,3400000 (reportVersion >= 20)
 func SystemBattery(pc checkinutil.Counter, record []string, system *bspb.BatteryStats_System) (string, []error) {
 	if system.GetBattery() != nil {
 		pc.Count("error-parse-system-battery-exist", 1)

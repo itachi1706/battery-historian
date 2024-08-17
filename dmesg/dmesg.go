@@ -66,8 +66,10 @@ func secsToMs(secs, remainder string) (int64, error) {
 // bootToUnixMs converts a kernel "since boot" time milliseconds time to unix milliseconds
 // using the given time mapping.
 // e.g. bootMs : 24450470
-//      timeMapping: {sinceBootMs: 24448456, unixMs: 1440725565111}
-//      would return 1440725567125
+//
+//	timeMapping: {sinceBootMs: 24448456, unixMs: 1440725565111}
+//	would return 1440725567125
+//
 // If the time mapping is not populated, this will just return the original "since boot" time.
 func bootToUnixMs(bootMs int64, tm timeMapping) int64 {
 	if tm.unixMs == 0 {

@@ -349,8 +349,10 @@ func (p *parser) printPartial() {
 
 // parseEvent parses a single event from the log data, and returns any warning or error.
 // Logcat lines are of the form:
-//   timestamp PID TID log-level log-tag: tag-values.
-//   (from: https://source.android.com/source/read-bug-reports.html)
+//
+//	timestamp PID TID log-level log-tag: tag-values.
+//	(from: https://source.android.com/source/read-bug-reports.html)
+//
 // The event variable contains the log-tag and the details variable contains the tag-values.
 func (p *parser) parseEvent(pkgs []*usagepb.PackageInfo, timestamp int64, event, details, pid string) (string, error) {
 	// Reset the saved event state if we've moved on to a new event type.

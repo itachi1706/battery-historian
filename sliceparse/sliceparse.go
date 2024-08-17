@@ -19,14 +19,16 @@ package sliceparse
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 // Consume parses len(output) elements of input into their respective output
 // variables.  Each output must be a pointer to a supported type.  What is
 // stored to the output depends on its type:
-//    *string: input[i] is directly copied
-//    *int32: strconv.ParseInt(input[i], 10, 32) is called
-//    *int64: strconv.ParseInt(input[i], 10, 64) is called
+//
+//	*string: input[i] is directly copied
+//	*int32: strconv.ParseInt(input[i], 10, 32) is called
+//	*int64: strconv.ParseInt(input[i], 10, 64) is called
 //
 // If an output element is a nil interface{}, the associated input element is
 // skipped.  A nil pointer value is also accepted - in that case the input
@@ -54,13 +56,15 @@ func Consume(input []string, output ...interface{}) (remaining []string, err err
 				*out = input[i]
 			}
 		case *int32:
-			if n, err := strconv.ParseInt(input[i], 10, 32); err != nil {
+			nfp := strings.Split(input[i], ".")
+			if n, err := strconv.ParseInt(nfp[0], 10, 32); err != nil {
 				return nil, err
 			} else if out != nil {
 				*out = int32(n)
 			}
 		case *int64:
-			if n, err := strconv.ParseInt(input[i], 10, 64); err != nil {
+			nfp := strings.Split(input[i], ".")
+			if n, err := strconv.ParseInt(nfp[0], 10, 64); err != nil {
 				return nil, err
 			} else if out != nil {
 				*out = n

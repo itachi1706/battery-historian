@@ -37,8 +37,8 @@ const (
 
 // powerMonitorRE is a regular expression to match a line in the power monitor file, in the format: unix_timestamp amps .
 // The two allowed formats are:
-//   1) unix_timestamp_seconds amps optional_volts, where the timestamp can include a fractional component.
-//   2) unix_timestamp_milliseconds milliamps optional_millivolts.
+//  1. unix_timestamp_seconds amps optional_volts, where the timestamp can include a fractional component.
+//  2. unix_timestamp_milliseconds milliamps optional_millivolts.
 var powerMonitorRE = regexp.MustCompile(`^(?P<timeStamp>\d+)(?P<fractional>([.]\d+)?)` + `\s+` +
 	`(?P<current>-?(\d*[.])?\d+)` + `\s*` + `(?P<voltage>-?(\d*[.])?\d+)?` + `\s*$`)
 

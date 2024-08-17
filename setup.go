@@ -32,7 +32,7 @@ import (
 )
 
 const (
-	closureCompilerVersion = "20170409"
+	closureCompilerVersion = "20200719"
 	closureCompilerZip     = "compiler-" + closureCompilerVersion + ".zip"
 	closureCompilerJar     = "closure-compiler-v" + closureCompilerVersion + ".jar"
 	closureCompilerURL     = "http://dl.google.com/closure-compiler/" + closureCompilerZip
@@ -165,7 +165,7 @@ func main() {
 	}
 
 	fmt.Println("\nGenerating JS runfiles...")
-	out, err := historianutils.RunCommand("python",
+	out, err := historianutils.RunCommand("python3",
 		path.Join(closureLibraryDir, "closure/bin/build/depswriter.py"),
 		fmt.Sprintf(`--root=%s`, path.Join(closureLibraryDir, "closure", "goog")),
 		`--root_with_prefix=js ../../../../js`)

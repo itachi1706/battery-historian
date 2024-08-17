@@ -20,13 +20,13 @@ import (
 
 func TestScrubPII(t *testing.T) {
 	test := map[string]string{
-		"pureemail@google.com":                               "XXX@google.com",
-		"hyphen-ated@google.com":                             "XXX@google.com",
-		"under_score@google.com":                             "XXX@google.com",
-		"with.dot@google.com":                                "XXX@google.com",
-		"notAn-email":                                        "notAn-email",
-		"incomplete@":                                        "incomplete@",
-		"wake.lock@1a23b4":                                   "wake.lock@1a23b4", // There are some wakelocks with this name format
+		"pureemail@google.com":   "XXX@google.com",
+		"hyphen-ated@google.com": "XXX@google.com",
+		"under_score@google.com": "XXX@google.com",
+		"with.dot@google.com":    "XXX@google.com",
+		"notAn-email":            "notAn-email",
+		"incomplete@":            "incomplete@",
+		"wake.lock@1a23b4":       "wake.lock@1a23b4", // There are some wakelocks with this name format
 		"com.android.calendar/com.google/noogley@google.com": "com.android.calendar/com.google/XXX@google.com",
 		"lot-o-prefixes/with//com.google/noogley@google.com": "lot-o-prefixes/with//com.google/XXX@google.com",
 
