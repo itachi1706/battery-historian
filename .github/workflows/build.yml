@@ -33,7 +33,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm/v7,linux/arm64
           push: false
-          tags: itachi1706/battery-historian:commit-${{ github.ref }}
+          tags: itachi1706/battery-historian:commit-${{ github.sha }}
   docker:
     runs-on: ubuntu-latest
     name: Build and Push Docker Images for master branch
