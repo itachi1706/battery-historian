@@ -1,7 +1,7 @@
 FROM golang:1.22-alpine AS builder
 
 # Install git and python3 and java 21
-RUN apk update && apk add --no-cache git python3 openjdk21-jdk
+RUN apk update && apk add --no-cache git openjdk21-jdk python3
 
 # Set the Current Working Directory inside the container
 WORKDIR /app
@@ -31,7 +31,7 @@ RUN mkdir output && \
     cp -r output/* .
 
 # Start a new stage from scratch
-FROM alpine:latest
+FROM alpine:3.20
 
 # Create and switch to non-root user
 RUN adduser -D -g '' appuser
