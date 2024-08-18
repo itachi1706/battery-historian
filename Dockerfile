@@ -33,10 +33,16 @@ RUN mkdir output && \
 # Start a new stage from scratch
 FROM alpine:latest
 
+# Create and switch to non-root user
+RUN adduser -D -g '' appuser
+USER appuser
+
+# Set the Current Working Directory inside the container
 WORKDIR /app
 
 # Copy the Pre-built binary file from the previous stage, as well as any of the required files to run the app
 COPY --from=builder /app/output/ /app
 
 # Command to run the executable
+EXPOSE 9999
 CMD ["./app"]
