@@ -25,6 +25,7 @@ RUN go build -o app cmd/battery-historian/battery-historian.go
 RUN mkdir output && \
     cp -r third_party output/ && \
     cp -r static output/ && \
+    cp robots.txt output/robots.txt && \
     cp -r compiled output/ && \
     cp -r templates output/ && \
     cp app output/ && \
